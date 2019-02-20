@@ -16,30 +16,60 @@
    <div class="weirdloader"><span class="delete-me">✖</span></div>
    <div class="container-fluid codebuilder-initial-container">
       <div class="row">
-         <div class="col col-md-2">
+         <div class="codebuilder-col col-md-2">
             snippets
-            <div id="div" class="draggable initial label_changable">
-               div
+
+            <div class="template">
+
+               <p id="name">div</p>
+               <div class="content">
+                  <div></div>
+               </div>
+
             </div>
-            <div id="nesting_div" class="draggable droppable initial label_changable">
-               nesting div
+
+            <div class="template">
+
+               <p id="name">row</p>
+               <div class="content">
+                  <div class="row"></div>
+               </div>
+
             </div>
-            <div id="row" class="draggable droppable initial label_changable row">
-               row
+
+            <div class="template">
+               <p id="name">col</p>
+               <div class="content">
+                  <div class="col-sm-3"></div>
+               </div>
             </div>
-            <div id="col" class="draggable droppable initial label_changable col-sm-3">
-               col
+
+            <div class="template">
+
+               <p id="name">jumbotron</p>
+               <div class="content">
+                  <div class="jumbotron">
+                     <h1>Bootstrap Tutorial</h1>
+                     <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
+                     responsive, mobile-first projects on the web.</p>
+                  </div>
+               </div>
+
             </div>
+            
          </div>
-         <div class="col col-md-9">
+         <div class="codebuilder-col col-md-9">
             drop:
             <div id="droparea" class="droppable"></div>
-            code:
-            <div id="codearea" class="code"><textarea class="code"></textarea></div>
+            <div id="codearea">
+               code:
+               <textarea class="code"></textarea>
+            </div>
          </div>
       </div>
    </div>
    <script type="text/javascript" src="js/draggable_init.js"></script>
+   <script type="text/javascript" src="js/dragging.js"></script>
    <script type="text/javascript" src="js/dropping.js"></script>
    <script type="text/javascript" src="js/rework_code.js"></script>
    <!-- script type="text/javascript" src="js/label_edit.js"></script -->

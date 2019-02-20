@@ -3,7 +3,7 @@ function reworkCode()
 {
     var codeNode = $('#droparea')[0].cloneNode(true);
 
-    $(codeNode).find('.delete-me').remove();
+    $(codeNode).find('.delete-me-wrapper').remove();
 
     $(codeNode).find('*').removeAttr('id ondragstart draggable ondrop ondragover');
     $(codeNode).find('*').removeClass('draggable label_changable droppable deletable');
