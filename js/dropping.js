@@ -21,18 +21,33 @@ function drop(ev)
 
    if ($(element_to_drop).hasClass('template'))
    {
-      element_to_drop = element_to_drop.cloneNode(true);
+      var name = $(element_to_drop).find('p#name').text();
+
+      //element_to_drop = element_to_drop.cloneNode(true);
+      element_to_drop = element_to_drop.children[1].children[0].cloneNode(true);
 
       element_to_drop.id = element_to_drop.id + '_' + new_element_id_counter;
       new_element_id_counter++;
 
       $(element_to_drop).removeClass('initial');
       $(element_to_drop).addClass('deletable');
-      $(element_to_drop).addClass('droppable');
+      $(element_to_drop).addClass('draggable');
 
-      var pname = $(element_to_drop).find('p#name');
-      $('<div class="delete-me-wrapper"><span class="delete-me">✖</span>'+pname+'</div>').prependTo(element_to_drop);
-      pname.remove();
+      $(element_to_drop).attr('ondragstart', 'drag(event)');
+      $(element_to_drop).attr('draggable', 'true');
+
+      if( !$(element_to_drop).hasClass('do_not_drop_on_me') )
+      {
+         $(element_to_drop).addClass('droppable');
+         $(element_to_drop).attr('ondrop', 'drop(event)');
+         $(element_to_drop).attr('ondragover', 'allowDrop(event)');
+      }
+
+      $(element_to_drop).addClass('code_block');
+      //fix_col_class(element_to_drop, target);
+
+      $('<div class="delete-me-wrapper"><span class="delete-me">✖</span><span class="block-field-label">'+name+'</span></div>').prependTo(element_to_drop);
+
    }
    console.log(element_to_drop);
 
@@ -42,3 +57,25 @@ function drop(ev)
    reworkCode();
    ev.stopPropagation();
 }
+
+/*
+function fix_col_class(el, target)
+{
+   var elem = $(el);
+   var par = $(target);
+   if( par != null)
+   {
+      if (par.hasClass('row'))
+      {
+      var rowcount = par.children().length + 1;
+
+      var elem_len = (12 / rowcount);
+
+      elem.removeClass(function (index, className) {
+            return (className.match(/(^|\s)col-\S+/g) || []).join(' ');
+         })
+         .addClass('col-sm-' + elem_len);
+      }
+   }
+
+}*/

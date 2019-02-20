@@ -11,15 +11,22 @@
    padding: 10px 20px;
 }
 
-#codearea{
-   border: 1px solid rgb(54, 54, 54);
+.code_block{
+   border: 1px solid rgb(31, 171, 252);
    border-radius: 4px;
-   padding: 10px 20px;
-   display: none;
+   padding: 5px 10px;
+   display: block;
+   min-height: 25px;
+}
+
+#codearea{
+   padding: 40px 0 10px 0;
 }
 
 #codearea textarea.code {
    width: 100%;
+   font-size: 0.8em;
+   min-height: 400px;
    max-width: 100%;
    min-width: 100%;
 }
@@ -60,10 +67,39 @@
 .drop-me-here {
    border: 1px dotted grey;
    padding: 5px 10px;
+   margin: 3px;
+   min-height: 20px;
+   display: inline-block;
    border-radius: 3px;
 }
 
+.template #content{
+   display: none !important;
+}
 
-.template .content{
-   display: none;
+.template p{
+   margin: 0;
+}
+
+.template_group{
+   border: 1px dotted grey;
+   padding: 3px 9px;
+   margin: 2px 5px;
+   border-radius: 4px;
+}
+.template_group summary{
+   color: #007dff;
+   cursor: pointer;
+}
+
+.block-field-label{
+   border: 1px solid #9b9b9b;
+   padding: 1px 4px 0px 4px;
+   margin: -12px 0px;
+   border-radius: 3px;
+   color: #5d5d5d;
+   position: absolute;
+   background-color: #fff7f7;
+   font-size: 0.8em;
+   opacity: 0.9;
 }

@@ -33,6 +33,6 @@ $(document).on('dragleave', function (e)
 
 $(document).on('click', '.delete-me', function ()
 {
-   $(this).parent().remove();
+   $(this).parent().parent().remove();
    reworkCode();
 });
