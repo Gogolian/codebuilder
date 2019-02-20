@@ -1,0 +1,72 @@
+.col {
+    border: 1px solid rgb(213, 213, 213);
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 10px 0px 0px 10px;
+ }
+
+ .droppable {
+    border: 1px solid rgb(31, 171, 252);
+    border-radius: 4px;
+    padding: 10px 20px;
+ }
+
+ .code {
+    border: 1px solid rgb(54, 54, 54);
+    border-radius: 4px;
+    padding: 10px 20px;
+ }
+
+ .code textarea.code {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+ }
+
+ .draggable {
+    border: 1px solid rgb(54, 54, 54);
+    border-radius: 4px;
+    padding: 5px 10px;
+    margin: 3px 5px;
+    cursor: grab;
+ }
+
+ .draggable:active {
+    cursor: grabbing;
+ }
+
+ .draggable.initial {
+    margin-top: 6px;
+ }
+
+ .draggable p {
+    margin: 0;
+ }
+
+ .deletable .delete-me {
+    border: 1px solid #e0bbbb;
+    padding: 1px 4px 0px 4px;
+    margin: -7px -24px;
+    border-radius: 3px;
+    color: #c87c7c;
+    cursor: pointer;
+    position: absolute;
+    background-color: #fff7f7;
+    font-size: 0.8em;
+    opacity: 0.5;
+ }
+
+ .deletable .delete-me:hover {
+    opacity: 1;
+ }
+
+ .drop-me-here {
+    border: 1px dotted grey;
+    padding: 5px 10px;
+    border-radius: 3px;
+ }
+
+ .weirdloader {
+    visibility: hidden;
+    position: absolute;
+ }

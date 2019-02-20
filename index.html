@@ -8,89 +8,7 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.min.js"></script>
-   <style>
-      .col {
-         border: 1px solid rgb(213, 213, 213);
-         border-radius: 4px;
-         padding: 10px 20px;
-         margin: 10px 0px 0px 10px;
-      }
-
-      .droppable {
-         border: 1px solid rgb(31, 171, 252);
-         border-radius: 4px;
-         padding: 10px 20px;
-      }
-
-      .code {
-         border: 1px solid rgb(54, 54, 54);
-         border-radius: 4px;
-         padding: 10px 20px;
-      }
-
-      .code textarea.code {
-         width: 100%;
-         max-width: 100%;
-         min-width: 100%;
-      }
-
-      .draggable {
-         border: 1px solid rgb(54, 54, 54);
-         border-radius: 4px;
-         padding: 5px 10px;
-         margin: 3px 5px;
-         cursor: grab;
-      }
-
-      .draggable:active {
-         cursor: grabbing;
-      }
-
-      .draggable.initial {
-         margin-top: 6px;
-      }
-
-      .draggable p {
-         margin: 0;
-      }
-
-      .deletable .delete-me {
-         border: 1px solid #e0bbbb;
-
-         padding: 1px 4px 0px 4px;
-
-         margin: -7px -24px;
-
-         border-radius: 3px;
-
-         color: #c87c7c;
-
-         cursor: pointer;
-
-         position: absolute;
-
-         background-color: #fff7f7;
-
-         font-size: 0.8em;
-
-         opacity: 0.5;
-      }
-
-      .deletable .delete-me:hover {
-         opacity: 1;
-      }
-
-      .drop-me-here {
-         border: 1px dotted grey;
-         padding: 5px 10px;
-         border-radius: 3px;
-      }
-
-      .weirdloader {
-         visibility: hidden;
-         position: absolute;
-      }
-   </style>
+   <link rel="stylesheet" href="style.css">
    <title>Code Builder</title>
 </head>
 
@@ -100,10 +18,18 @@
       <div class="row">
          <div class="col col-md-2">
             snippets
-            <div id="div" class="draggable initial label_changable"><p>div</p></div>
-            <div id="nesting_div" class="draggable droppable initial label_changable"><p>nesting div</p></div>
-            <div id="row" class="draggable droppable initial label_changable row"><p>row</p></div>
-            <div id="col" class="draggable droppable initial label_changable col"><p>col</p></div>
+            <div id="div" class="draggable initial label_changable">
+               div
+            </div>
+            <div id="nesting_div" class="draggable droppable initial label_changable">
+               nesting div
+            </div>
+            <div id="row" class="draggable droppable initial label_changable row">
+               row
+            </div>
+            <div id="col" class="draggable droppable initial label_changable col-sm-3">
+               col
+            </div>
          </div>
          <div class="col col-md-9">
             drop:
@@ -113,145 +39,11 @@
          </div>
       </div>
    </div>
-   <script type="text/javascript" src="js/script.js"></script>
-   <script type="text/javascript">
-      $('.draggable').attr('ondragstart', 'drag(event)');
-      $('.draggable').attr('draggable', 'true');
-      $('.droppable').attr('ondrop', 'drop(event)');
-      $('.droppable').attr('ondragover', 'allowDrop(event)');
-   </script>
-   <script type="text/javascript">
-      function allowDrop(ev) {
-         ev.preventDefault();
-         if (!$(ev.target).hasClass('drop-me-here') && $(ev.target).hasClass('droppable')) {
-            $('.drop-me-here').remove();
-            $('<span class="drop-me-here"></span>').appendTo(ev.target);
-         }
-      }
+   <script type="text/javascript" src="js/draggable_init.js"></script>
+   <script type="text/javascript" src="js/dropping.js"></script>
+   <script type="text/javascript" src="js/rework_code.js"></script>
+   <!-- script type="text/javascript" src="js/label_edit.js"></script -->
 
-      function drag(ev) {
-         ev.dataTransfer.setData("text", ev.target.id);
-      }
-
-      var new_element_id_counter = 0;
-      function drop(ev) {
-         ev.preventDefault();
-
-         var data = ev.dataTransfer.getData("text");
-         var element_to_drop = document.getElementById(data);
-
-         var target = ev.target;
-
-         //console.log(target);
-         while (!$(target).hasClass('droppable')) {
-            target = target.parentElement;
-            //console.log(target);
-            if ($(target).hasClass('codebuilder-initial-container')) break;
-         }
-
-         $('.drop-me-here').remove();
-
-         if ($(element_to_drop).hasClass('initial')) {
-            element_to_drop = element_to_drop.cloneNode(true);
-
-            element_to_drop.id = element_to_drop.id + '_' + new_element_id_counter;
-            new_element_id_counter++;
-
-            $(element_to_drop).removeClass('initial');
-            $(element_to_drop).addClass('deletable');
-            $(element_to_drop).find('p').attr('onclick', 'labeledit(this)');
-
-            $('<span class="delete-me">✖</span>').prependTo(element_to_drop);
-         }
-         console.log(element_to_drop);
-
-         target.appendChild(element_to_drop);
-         reworkCode();
-         ev.stopPropagation();
-      }
-
-      var dragTimer;
-      $(document).on('dragover', function (e) {
-         window.clearTimeout(dragTimer);
-      });
-      $(document).on('dragleave', function (e) {
-         dragTimer = window.setTimeout(function () {
-            $('.drop-me-here').remove();
-         }, 50);
-      });
-
-      $(document).on('click', '.delete-me', function () {
-         //$('.delete-me').click(function () {
-         $(this).parent().remove();
-         reworkCode();
-      });
-
-      function reworkCode() {
-         var codeNode = $('#droparea')[0].cloneNode(true);
-         $(codeNode).find('.delete-me').remove();
-         $(codeNode).find('*').removeAttributes();
-         $('#codearea .code').val(codeNode.innerHTML);
-      }
-
-
-      ///
-
-      jQuery.fn.removeAttributes = function () {
-         return this.each(function () {
-            var attributes = $.map(this.attributes, function (item) {
-               return item.name;
-            });
-            var img = $(this);
-            $.each(attributes, function (i, item) {
-               img.removeAttr(item);
-            });
-         });
-      }
-   </script>
-   <script>
-      function labeledit(el) {
-         //var elem = $(this);
-         elem = $(el);
-         console.log(elem);
-
-         if (elem.prop('editing') != 'yes') {
-            elem.prop('editing', 'yes');
-
-            var tmp = elem.clone();
-            var id = tmp.attr('id');
-
-            elem.html('<input type="text" id="change_' + id + '" class="label_changer" value="' + elem.text() + '"/>');
-            $('#change_' + id).focus();
-            $('#change_' + id).on('blur', function () {
-
-               var new_label_text = $(this).val();
-               elem.html(tmp.html());
-               elem.text(new_label_text);
-               elem.prop('editing', 'no');
-               reworkCode();
-            });
-            $('#change_' + id).enterKey(function () {
-               var new_label_text = $(this).val();
-               elem.html(tmp.html());
-               elem.text(new_label_text);
-               elem.prop('editing', 'no');
-               reworkCode();
-            });
-         }
-         el.stopPropagation();
-      }
-
-      $.fn.enterKey = function (fnc, mod) {
-         return this.each(function () {
-            $(this).keypress(function (ev) {
-               var keycode = (ev.keyCode ? ev.keyCode : ev.which);
-               if ((keycode == '13' || keycode == '10') && (!mod || ev[mod + 'Key'])) {
-                  fnc.call(this, ev);
-               }
-            })
-         })
-      }
-   </script>
 </body>
 
 </html>
