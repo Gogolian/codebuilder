@@ -8,7 +8,7 @@ function reworkCode()
     $(codeNode).find('.delete-me-wrapper').remove();
 
     $(codeNode).find('*').removeAttr('id ondragstart draggable ondrop ondragover');
-    $(codeNode).find('*').removeClass('do_not_drop_on_me code_block draggable label_changable droppable deletable');
+    $(codeNode).find('*').removeClass('gcb-inliner do_not_drop_on_me code_block draggable label_changable droppable deletable');
 
     $(codeNode).find('.wrapper_delete').children().unwrap();
 

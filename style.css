@@ -134,3 +134,7 @@
    font-style: italic;
    font-weight: 100;
 }
+
+.gcb-inliner{
+   display: inline-block;
+}
