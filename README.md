@@ -7,13 +7,10 @@ Has many issues to be yet resolved, but works :)
 You can add your own code templates by adding a html file to /templates/ directory.
 Basic syntax is:
 
-&lt;p id="name"&gt;<< PUT YOUR NAME HERE - THIS WILL BE DISPLAYED IN LIST ON THE LEFT >>&lt;/p&gt;
-
-&lt;div id="content"&gt;
-
-    << PUT YOUR CODE HERE >>
-    
-&lt;/div&gt;
+    <p id="name"><< PUT YOUR NAME HERE - THIS WILL BE DISPLAYED IN LIST ON THE LEFT >></p>
+    <div id="content">
+        << PUT YOUR CODE HERE >>
+    </div>
 
 Group them by adding a directory inside /templates/ (currently supports only one level down sorry)
 
