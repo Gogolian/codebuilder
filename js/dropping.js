@@ -52,6 +52,9 @@ function drop(ev)
    console.log(element_to_drop);
 
    target.appendChild(element_to_drop);
+
+   $('.gcb_temporary_dropper').children().unwrap();
+   $('.gcb_temporary_dropper').remove();
    //fix_col_class(target);
 
    reworkCode();

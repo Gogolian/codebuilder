@@ -8,9 +8,19 @@ function reworkCode()
     $(codeNode).find('.delete-me-wrapper').remove();
 
     $(codeNode).find('*').removeAttr('id ondragstart draggable ondrop ondragover');
-    $(codeNode).find('*').removeClass('gcb-inliner do_not_drop_on_me code_block draggable label_changable droppable deletable');
+    $(codeNode).find('*').removeClass('display_me_inline do_not_drop_on_me code_block draggable label_changable droppable deletable');
 
     $(codeNode).find('.wrapper_delete').children().unwrap();
+
+    $(codeNode).find('*').each( function(){
+        var dis = $(this);
+        var attr = $(this).attr('my_real_type');
+        dis.removeAttr('my_real_type');
+        if (typeof attr !== typeof undefined && attr !== false) {
+            dis.changeElementType(attr);
+        }
+        
+    });
 
     var code_start = '<!DOCTYPE html>\n<html lang="pl">\n<head>\n       <meta name="viewport" content="width=device-width, initial-scale=1">\n       <meta charset="UTF-8">\n       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">\n       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>\n       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>\n       <title>Built with code builder</title>\n</head>\n<body>\n       <div class="container">\n<!-- START CONTENT --->';
     var code_end = '\n\n       <!-- END CONTENT --->\n       </div>\n</body>\n</html>';
@@ -20,6 +30,20 @@ function reworkCode()
     document.getElementById('gcb_preview').src = "data:text/html;charset=utf-8," + escape(new_code);
 
 }
+
+(function($) {
+    $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+            attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+            return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+    };
+})(jQuery);
 
  function formatCode (code, stripWhiteSpaces, stripEmptyLines) {
     "use strict";

@@ -58,7 +58,7 @@
                 template body (place {{{item}}} where each text from list should be).
                 <textarea class="template" name="template" style="width:100%; min-height: 300px;" required><p id="name">all</p>
 <div id="content">
-    <div class="wrapper_delete gcb-inliner">
+    <div class="wrapper_delete display_me_inline">
         <div class="delete-me-wrapper">To work wrap each button in btn-group first</div>
         <div class="div1 ">div1</div>
         <div class="div2 droppable">div2</div>
@@ -69,7 +69,7 @@
 <!-- div .delete-me-wrapper will be deleted upon compilation  -->
 <!-- elements inside .wrapper_delete will be unwrapped (only childrn will exists)-->
 <!-- div .do_not_drop_on_me will prevent being dropped on -->
-<!-- div .gcb-inliner will display element inline but will be deleted upon completition --></textarea>
+<!-- div .display_me_inline will display element inline but will be deleted upon completition --></textarea>
             </div>
         </div>
         <div class="row">

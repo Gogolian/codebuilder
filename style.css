@@ -87,7 +87,7 @@
 
 .drop-me-here {
    border: 1px dotted grey;
-   padding: 5px 10px;
+   padding: 3px 8px;
    margin: 3px;
    min-height: 20px;
    display: inline-block;
@@ -135,6 +135,17 @@
    font-weight: 100;
 }
 
-.gcb-inliner{
+.display_me_inline{
    display: inline-block;
+}
+
+.gcb_temporary_dropper{
+   border: 1px dotted grey;
+   padding: 3px 8px;
+   margin: 3px;
+   min-height: 20px;
+   display: inline-block !important;
+   position: relative !important;
+   z-index: 9999 !important;
+   border-radius: 3px;
 }
