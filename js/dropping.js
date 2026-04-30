@@ -1,9 +1,10 @@
 
+const MAX_LABEL_LENGTH = 100;
 let newElementIdCounter = 0;
 
 function normalizeLabel(value)
 {
-   return String(value).replace(/\s+/g, ' ').trim().slice(0, 100);
+   return String(value).replace(/\s+/g, ' ').trim().slice(0, MAX_LABEL_LENGTH);
 }
 
 function drop(ev)

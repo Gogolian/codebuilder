@@ -29,6 +29,11 @@
 
     function info($message, $type = 'info')
     {
+        $allowedTypes = ['info', 'warning', 'danger', 'success'];
+        if (!in_array($type, $allowedTypes, true)) {
+            $type = 'info';
+        }
+
         echo '<div class="alert alert-'.e($type).'"><strong>'.e($message).'</strong></div>';
     }
 
