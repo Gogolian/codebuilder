@@ -1,6 +1,11 @@
 
 let newElementIdCounter = 0;
 
+function normalizeLabel(value)
+{
+   return String(value).replace(/\s+/g, ' ').trim().slice(0, 100);
+}
+
 function drop(ev)
 {
    ev.preventDefault();
@@ -19,7 +24,7 @@ function drop(ev)
 
    if ($(element_to_drop).hasClass('template'))
    {
-      const name = $(element_to_drop).find('p#name').text();
+      const name = normalizeLabel($(element_to_drop).find('p#name').text());
 
       //element_to_drop = element_to_drop.cloneNode(true);
       element_to_drop = element_to_drop.children[1].children[0].cloneNode(true);

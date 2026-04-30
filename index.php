@@ -79,7 +79,7 @@
             <div id="previewarea">
                preview: (iframe width: <span class="gcb-iframe-width">100%</span>)<br/>
                <div class="gcb-resizable">
-                  <iframe id="gcb_preview" sandbox=""></iframe>
+                  <iframe id="gcb_preview" sandbox="allow-forms"></iframe>
                </div>
             </div>
          </div>
