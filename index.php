@@ -85,11 +85,11 @@
          </div>
       </div>
    </div>
+   <script type="text/javascript" src="js/draggable_init.js"></script>
    <script type="text/javascript" src="js/dragging.js"></script>
    <script type="text/javascript" src="js/dropping.js"></script>
    <script type="text/javascript" src="js/rework_code.js"></script>
    <script type="text/javascript" src="js/additional.js"></script>
-   <script type="text/javascript" src="js/draggable_init.js"></script>
 
 </body>
 

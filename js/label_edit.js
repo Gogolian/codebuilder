@@ -8,9 +8,8 @@ function labeledit(el) {
       const id = tmp.attr('id');
       const input = $('<input>', {
          type: 'text',
-         id: 'change_' + id,
-         class: 'label_changer'
-      }).val(elem.text());
+         id: 'change_' + id
+      }).addClass('label_changer').val(elem.text());
 
       elem.empty().append(input);
       input.focus();
