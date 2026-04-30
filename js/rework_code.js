@@ -3,7 +3,7 @@
 
 function reworkCode()
 {
-    var codeNode = $('#droparea')[0].cloneNode(true);
+    const codeNode = $('#droparea')[0].cloneNode(true);
 
     $(codeNode).find('.delete-me-wrapper').remove();
 
@@ -13,8 +13,8 @@ function reworkCode()
     $(codeNode).find('.wrapper_delete').children().unwrap();
 
     $(codeNode).find('*').each( function(){
-        var dis = $(this);
-        var attr = $(this).attr('my_real_type');
+        const dis = $(this);
+        const attr = $(this).attr('my_real_type');
         dis.removeAttr('my_real_type');
         if (typeof attr !== typeof undefined && attr !== false) {
             dis.changeElementType(attr);
@@ -22,18 +22,17 @@ function reworkCode()
         
     });
 
-    var code_start = '<!DOCTYPE html>\n<html lang="pl">\n<head>\n       <meta name="viewport" content="width=device-width, initial-scale=1">\n       <meta charset="UTF-8">\n       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">\n       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>\n       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>\n       <title>Built with code builder</title>\n</head>\n<body>\n       <div class="container">\n<!-- START CONTENT --->';
-    var code_end = '\n\n       <!-- END CONTENT --->\n       </div>\n</body>\n</html>';
-    var new_code = code_start + formatCode(codeNode.innerHTML + code_end,true,true);
+    const code_start = '<!DOCTYPE html>\n<html lang="pl">\n<head>\n       <meta charset="UTF-8">\n       <meta name="viewport" content="width=device-width, initial-scale=1">\n       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">\n       <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>\n       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>\n       <title>Built with code builder</title>\n</head>\n<body>\n       <div class="container">\n<!-- START CONTENT --->';
+    const code_end = '\n\n       <!-- END CONTENT --->\n       </div>\n</body>\n</html>';
+    const new_code = code_start + formatCode(codeNode.innerHTML + code_end,true,true);
     $('#codearea .code').val(new_code);
-    //$('#gcb_preview').contents().html(new_code);
-    document.getElementById('gcb_preview').src = "data:text/html;charset=utf-8," + escape(new_code);
+    document.getElementById('gcb_preview').src = "data:text/html;charset=utf-8," + encodeURIComponent(new_code);
 
 }
 
 (function($) {
     $.fn.changeElementType = function(newType) {
-        var attrs = {};
+        const attrs = {};
 
         $.each(this[0].attributes, function(idx, attr) {
             attrs[attr.nodeName] = attr.nodeValue;
@@ -47,14 +46,14 @@ function reworkCode()
 
  function formatCode (code, stripWhiteSpaces, stripEmptyLines) {
     "use strict";
-    var whitespace          = ' '.repeat(4);             // Default indenting 4 whitespaces
-    var currentIndent       = 0;
-    var char                = null;
-    var nextChar            = null;
+    const whitespace        = ' '.repeat(4);             // Default indenting 4 whitespaces
+    let currentIndent       = 0;
+    let char                = null;
+    let nextChar            = null;
 
 
-    var result = '';
-    for(var pos=0; pos <= code.length; pos++) {
+    let result = '';
+    for(let pos=0; pos <= code.length; pos++) {
         char            = code.substr(pos, 1);
         nextChar        = code.substr(pos+1, 1);
 

@@ -2,19 +2,18 @@
 <html lang="pl">
 
 <head>
-   <meta name="viewport" content="width=device-width, initial-scale=1">
    <meta charset="UTF-8">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   
-   <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/start/jquery-ui.css"rel="stylesheet" />
-   <script
-			  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-			  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-			  crossorigin="anonymous"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.min.js"></script>
+   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+   <script
+ 			  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+ 			  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+ 			  crossorigin="anonymous"></script>
+
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    <link rel="stylesheet" href="style.css">
    <link rel="stylesheet" href="template_repair_styles.css">
    <title>Code Builder</title>
@@ -26,39 +25,47 @@
          <div class="codebuilder-col col-md-2">
             snippets
             <?php
-            if ($handle = opendir('./templates/'))
+            function e($value)
             {
-               while (false !== ($entry = readdir($handle)))
-               {
-                   if ($entry != "." && $entry != "..")
-                   {
-                      if( is_dir('./templates/'.$entry) )
-                      {
-                        echo '<div class="template_group"><details><summary>▶ '.$entry.'</summary>';
-                        if ($handle2 = opendir('./templates/'.$entry))
-                        {
-                           while (false !== ($entry2 = readdir($handle2)))
-                           {
-                               if ($entry2 != "." && $entry2 != "..")
-                               {
-                                    echo '<div class="template">';
-                                    echo file_get_contents('./templates/'.$entry.'/'.$entry2);
-                                    echo '</div>';
-                               }
-                           }
-                           closedir($handle2);
-                        }
-                        echo '</details></div>';
-                      }
-                      else
-                      {
-                        echo '<div class="template">';
-                        echo file_get_contents('./templates/'.$entry);
-                        echo '</div>';
-                     }
-                   }
+               return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+            }
+
+            function render_template_file($path, $templatesBase)
+            {
+               $realPath = realpath($path);
+               if (
+                  $realPath === false ||
+                  strpos($realPath, $templatesBase . DIRECTORY_SEPARATOR) !== 0 ||
+                  strtolower(pathinfo($realPath, PATHINFO_EXTENSION)) !== 'html'
+               ) {
+                  return;
                }
-               closedir($handle);
+
+               echo '<div class="template">';
+               echo file_get_contents($realPath);
+               echo '</div>';
+            }
+
+            $templatesBase = realpath(__DIR__ . '/templates');
+            if ($templatesBase !== false) {
+               $entries = glob($templatesBase . '/*') ?: [];
+               sort($entries, SORT_NATURAL | SORT_FLAG_CASE);
+
+               foreach ($entries as $entry) {
+                  if (is_dir($entry)) {
+                     echo '<div class="template_group"><details><summary>▶ ' . e(basename($entry)) . '</summary>';
+
+                     $files = glob($entry . '/*.html') ?: [];
+                     sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+                     foreach ($files as $file) {
+                        render_template_file($file, $templatesBase);
+                     }
+
+                     echo '</details></div>';
+                  } else {
+                     render_template_file($entry, $templatesBase);
+                  }
+               }
             }
             ?>
          </div>
@@ -78,11 +85,11 @@
          </div>
       </div>
    </div>
-   <script type="text/javascript" src="js/draggable_init.js"></script>
    <script type="text/javascript" src="js/dragging.js"></script>
    <script type="text/javascript" src="js/dropping.js"></script>
    <script type="text/javascript" src="js/rework_code.js"></script>
    <script type="text/javascript" src="js/additional.js"></script>
+   <script type="text/javascript" src="js/draggable_init.js"></script>
 
 </body>
 

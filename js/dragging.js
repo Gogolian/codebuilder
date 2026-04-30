@@ -26,7 +26,7 @@ function drag(ev) {
 }
 
 
-var dragTimer;
+let dragTimer;
 
 $(document).on('dragover', function (e)
 {
