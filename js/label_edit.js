@@ -1,5 +1,4 @@
 function labeledit(el) {
-          //var elem = $(this);
           const elem = $(el);
 
          if (elem.prop('editing') != 'yes') {

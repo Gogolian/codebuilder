@@ -39,7 +39,10 @@ function drop(ev)
       $(element_to_drop).addClass('code_block');
       //fix_col_class(element_to_drop, target);
 
-      $('<div class="delete-me-wrapper"><span class="delete-me">✖</span><span class="block-field-label">'+name+'</span></div>').prependTo(element_to_drop);
+      $('<div>', { class: 'delete-me-wrapper' })
+         .append($('<span>', { class: 'delete-me', text: '✖' }))
+         .append($('<span>', { class: 'block-field-label', text: name }))
+         .prependTo(element_to_drop);
 
     }
 

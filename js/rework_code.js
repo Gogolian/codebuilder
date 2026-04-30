@@ -26,7 +26,9 @@ function reworkCode()
     const code_end = '\n\n       <!-- END CONTENT --->\n       </div>\n</body>\n</html>';
     const new_code = code_start + formatCode(codeNode.innerHTML + code_end,true,true);
     $('#codearea .code').val(new_code);
-    document.getElementById('gcb_preview').src = "data:text/html;charset=utf-8," + encodeURIComponent(new_code);
+    const preview = document.getElementById('gcb_preview');
+    preview.src = 'about:blank';
+    preview.srcdoc = new_code;
 
 }
 
