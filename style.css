@@ -67,9 +67,8 @@
 
 .deletable .delete-me {
    border: 1px solid #e0bbbb;
-   padding: 1px 4px 0px 4px;
-   margin: -7px -24px;
-   margin: -12px -17px;
+    padding: 1px 4px 0px 4px;
+    margin: -12px -17px;
    border-radius: 3px;
    color: #c87c7c;
    cursor: pointer;
@@ -116,7 +115,7 @@
 .block-field-label{
    border: 1px solid #9b9b9b;
    padding: 1px 4px 0px 4px;
-   margin: -12px 0px;
+    margin: -12px 0px;
    border-radius: 3px;
    color: #5d5d5d;
    position: absolute;

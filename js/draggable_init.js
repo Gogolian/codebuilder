@@ -1,14 +1,52 @@
 
 
-var templ_id_num = 0;
+let templIdNum = 0;
 
 $('.template').each(function()
 {
       $(this).addClass('draggable');
-      $(this).attr('id', 'templ_' + (++templ_id_num));
+      $(this).attr('id', 'templ_' + (++templIdNum));
 });
 
-$('.draggable').attr('ondragstart', 'drag(event)');
-$('.draggable').attr('draggable', 'true');
-$('.droppable').attr('ondrop', 'drop(event)');
-$('.droppable').attr('ondragover', 'allowDrop(event)');
+function bindDragAndDrop(element)
+{
+      if ($(element).hasClass('draggable')) {
+            element.draggable = true;
+            if (!element.gcbDragHandler) {
+                  element.gcbDragHandler = function(event) {
+                        drag(event);
+                  };
+            }
+            element.removeEventListener('dragstart', element.gcbDragHandler);
+            element.addEventListener('dragstart', element.gcbDragHandler);
+      }
+
+      if ($(element).hasClass('droppable')) {
+            if (!element.gcbDropHandler) {
+                  element.gcbDropHandler = function(event) {
+                        drop(event);
+                  };
+            }
+            if (!element.gcbDragoverHandler) {
+                  element.gcbDragoverHandler = function(event) {
+                        allowDrop(event);
+                  };
+            }
+            element.removeEventListener('drop', element.gcbDropHandler);
+            element.addEventListener('drop', element.gcbDropHandler);
+            element.removeEventListener('dragover', element.gcbDragoverHandler);
+            element.addEventListener('dragover', element.gcbDragoverHandler);
+      }
+}
+
+function initializeInteractions(scope)
+{
+      const $scope = $(scope);
+      $scope.filter('.draggable, .droppable')
+            .add($scope.find('.draggable, .droppable'))
+            .each(function() {
+                  bindDragAndDrop(this);
+            });
+}
+
+initializeInteractions(document);

@@ -1,19 +1,23 @@
 
-var new_element_id_counter = 0;
+const MAX_LABEL_LENGTH = 100;
+let newElementIdCounter = 0;
+
+function normalizeLabel(value)
+{
+   return String(value).replace(/\s+/g, ' ').trim().slice(0, MAX_LABEL_LENGTH);
+}
 
 function drop(ev)
 {
    ev.preventDefault();
 
-   var data = ev.dataTransfer.getData("text");
-   var element_to_drop = document.getElementById(data);
+   const data = ev.dataTransfer.getData("text");
+   let element_to_drop = document.getElementById(data);
 
-   var target = ev.target;
+   let target = ev.target;
 
-   //console.log(target);
    while (!$(target).hasClass('droppable')) {
       target = target.parentElement;
-      //console.log(target);
       if ($(target).hasClass('codebuilder-initial-container')) break;
    }
 
@@ -21,35 +25,34 @@ function drop(ev)
 
    if ($(element_to_drop).hasClass('template'))
    {
-      var name = $(element_to_drop).find('p#name').text();
+      const name = normalizeLabel($(element_to_drop).find('p#name').text());
 
       //element_to_drop = element_to_drop.cloneNode(true);
       element_to_drop = element_to_drop.children[1].children[0].cloneNode(true);
 
-      element_to_drop.id = element_to_drop.id + '_' + new_element_id_counter;
-      new_element_id_counter++;
+      element_to_drop.id = element_to_drop.id + '_' + newElementIdCounter;
+      newElementIdCounter++;
 
       $(element_to_drop).removeClass('initial');
       $(element_to_drop).addClass('deletable');
       $(element_to_drop).addClass('draggable');
 
-      $(element_to_drop).attr('ondragstart', 'drag(event)');
-      $(element_to_drop).attr('draggable', 'true');
-
       if( !$(element_to_drop).hasClass('do_not_drop_on_me') )
       {
          $(element_to_drop).addClass('droppable');
-         $(element_to_drop).attr('ondrop', 'drop(event)');
-         $(element_to_drop).attr('ondragover', 'allowDrop(event)');
       }
 
       $(element_to_drop).addClass('code_block');
       //fix_col_class(element_to_drop, target);
 
-      $('<div class="delete-me-wrapper"><span class="delete-me">✖</span><span class="block-field-label">'+name+'</span></div>').prependTo(element_to_drop);
+      $('<div>', { class: 'delete-me-wrapper' })
+         .append($('<span>', { class: 'delete-me', text: '✖' }))
+         .append($('<span>', { class: 'block-field-label', text: name }))
+         .prependTo(element_to_drop);
 
-   }
-   console.log(element_to_drop);
+    }
+
+   initializeInteractions(element_to_drop);
 
    target.appendChild(element_to_drop);
 
